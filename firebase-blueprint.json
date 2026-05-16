@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Metadata about the user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId"]
+    },
+    "MemoryItem": {
+      "title": "Memory Item",
+      "description": "A single photo, video, or voice note",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "description": "Base64 data URL" },
+        "type": { "type": "string", "enum": ["photo", "video", "voice"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" }
+      },
+      "required": ["url", "type", "userId", "createdAt"]
+    },
+    "Story": {
+      "title": "Story",
+      "description": "A written story or milestone",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "emoji": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "content", "userId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/users/{userId}/memories/{memoryId}": {
+      "schema": "MemoryItem",
+      "description": "User memories (photos, videos, voices)"
+    },
+    "/users/{userId}/stories/{storyId}": {
+      "schema": "Story",
+      "description": "User stories and milestones"
+    }
+  }
+}

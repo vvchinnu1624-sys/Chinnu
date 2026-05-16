@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 64;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Rules for Birthday Surprises
+    match /surprises/{surpriseId} {
+      allow read: if true;
+      allow write: if true; // Temporary open for debugging guest uploads, refine later
+      
+      match /memories/{memoryId} {
+        allow read: if true;
+        allow create, delete: if true;
+      }
+      
+      match /mistakes/{mistakeId} {
+        allow read: if true;
+        allow create, delete: if true;
+      }
+      
+      match /quiz/{quizId} {
+        allow read: if true;
+        allow create, delete: if true;
+      }
+    }
+  }
+}

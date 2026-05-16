@@ -1,0 +1,6 @@
+{
+  "name": "Birthday Romance for Chinnu",
+  "description": "A magical, interactive birthday surprise website with a romantic luxury pink theme, featuring a cake cutting scene, memory slideshow, and emotional 'Open When' messages.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
